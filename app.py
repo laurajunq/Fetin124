@@ -1,9 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+import random
 
 app = Flask(__name__)
 
+movimentos = [
+    "DIREITA",
+    "ESQUERDA",
+    "CIMA",
+    "BAIXO",
+    "PARADO"
+]
+
 @app.route('/')
 def home():
+
     return render_template('index.html')
 
-app.run(host='0.0.0.0', port=5000)
+@app.route('/movimento')
+def movimento():
+
+    return jsonify({
+        "movimento": random.choice(movimentos)
+    })
+
+app.run(debug=True)

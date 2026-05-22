@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luva Inteligente</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Luva Inteligente</h1>
+            <p>Sistema de Monitoramento Tátil</p>
+        </header>
+
+        <div class="status-card">
+            <h2>Status do Sistema</h2>
+            <div class="status online"></div>
+            <span>ONLINE</span>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Movimento Detectado</h3>
+                <p id="movimento">DIREITA</p>
+            </div>
+
+            <div class="card">
+                <h3>Intensidade</h3>
+                <p id="intensidade">78%</p>
+            </div>
+
+            <div class="card">
+                <h3>Vibracall</h3>
+                <p id="vibracao">ATIVADO</p>
+            </div>
+
+        </div>
+
+        <div class="logs">
+            <h2>Logs do Sistema</h2>
+
+            <ul id="log-list">
+                <li>Sensor iniciado...</li>
+                <li>Conexão estabelecida...</li>
+                <li>Movimento detectado: DIREITA</li>
+            </ul>
+        </div>
+
+        <button onclick="testeVibracao()">
+            Testar Vibração
+        </button>
+
+    </div>
+
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+
+</body>
+</html>

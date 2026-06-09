@@ -1,0 +1,51 @@
+<div class="container">
+
+  <header>
+    <h1>Histórico</h1>
+    <p>Registros armazenados da luva inteligente</p>
+  </header>
+
+  <div class="logs">
+
+    <h2>Últimas Leituras</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Movimento</th>
+          <th>Intensidade</th>
+          <th>Vibração</th>
+          <th>GX</th>
+          <th>GY</th>
+          <th>GZ</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let leitura of leituras">
+
+          <td>{{ leitura.movimento }}</td>
+
+          <td>
+            {{ leitura.intensidade | number:'1.0-2' }}
+          </td>
+
+          <td>{{ leitura.vibracao }}</td>
+
+          <td>{{ leitura.gx | number:'1.0-2' }}</td>
+
+          <td>{{ leitura.gy | number:'1.0-2' }}</td>
+
+          <td>{{ leitura.gz | number:'1.0-2' }}</td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

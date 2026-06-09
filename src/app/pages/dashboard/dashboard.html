@@ -1,0 +1,72 @@
+<div class="container">
+
+  <div class="status-card">
+    <div class="status online"></div>
+
+    <div>
+      <h2>Status do Sistema</h2>
+      <span>ONLINE</span>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Movimento Detectado</h3>
+      <p>{{ movimento }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Intensidade</h3>
+      <p>{{ intensidade | number:'1.0-2' }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Vibração</h3>
+      <p>{{ vibracao }}</p>
+    </div>
+
+  </div>
+
+  <div class="sensor-grid">
+
+    <div class="sensor">
+      <h4>GX</h4>
+      <p>{{ gx | number:'1.0-2' }}</p>
+    </div>
+
+    <div class="sensor">
+      <h4>GY</h4>
+      <p>{{ gy | number:'1.0-2' }}</p>
+    </div>
+
+    <div class="sensor">
+      <h4>GZ</h4>
+      <p>{{ gz | number:'1.0-2' }}</p>
+    </div>
+
+  </div>
+
+  <div class="logs">
+
+    <h2>Logs do Sistema</h2>
+
+    <ul>
+
+      <li *ngIf="logs.length === 0">
+        Nenhum evento registrado.
+      </li>
+
+      <li *ngFor="let log of logs">
+        {{ log }}
+      </li>
+
+    </ul>
+
+  </div>
+
+  <button (click)="testeVibracao()">
+    Testar Vibração
+  </button>
+
+</div>

@@ -8,16 +8,22 @@ const char* password = "000222201";
 
 Adafruit_MPU6050 mpu;
 
+const int vibracall = 33;
+
+// Limite de tremor
+float limiteTremor = 1.5;
+
 void setup() {
 
   Serial.begin(115200);
 
-  // Configura I2C
   Wire.begin(25, 26);
+
+  pinMode(vibracall, OUTPUT);
+  digitalWrite(vibracall, LOW);
 
   Serial.println("Iniciando MPU6050...");
 
-  // Inicializa MPU6050
   if (!mpu.begin()) {
 
     Serial.println("MPU6050 nao encontrado!");
@@ -29,83 +35,57 @@ void setup() {
 
   Serial.println("MPU6050 conectado!");
 
-  // Conecta WiFi
   WiFi.begin(ssid, password);
 
   Serial.print("Conectando WiFi");
 
   while (WiFi.status() != WL_CONNECTED) {
-
     delay(500);
-
     Serial.print(".");
   }
 
   Serial.println();
-
   Serial.println("WiFi conectado!");
-
-  Serial.print("IP da ESP32: ");
-
   Serial.println(WiFi.localIP());
-
-  delay(1000);
 }
 
 void loop() {
 
   sensors_event_t a, g, temp;
 
-  // Lê dados do MPU6050
   mpu.getEvent(&a, &g, &temp);
 
-  float x = a.acceleration.x;
-  float y = a.acceleration.y;
-  float z = a.acceleration.z;
+  float gx = abs(g.gyro.x);
+  float gy = abs(g.gyro.y);
+  float gz = abs(g.gyro.z);
 
-  // Mostra valores
-  Serial.print("X: ");
-  Serial.print(x);
+  float intensidadeTremor = gx + gy + gz;
+
+  Serial.print("Gyro X: ");
+  Serial.print(gx);
 
   Serial.print(" | Y: ");
-  Serial.print(y);
+  Serial.print(gy);
 
   Serial.print(" | Z: ");
-  Serial.println(z);
+  Serial.print(gz);
 
-  // Detecta movimentos
+  Serial.print(" | Tremor: ");
+  Serial.println(intensidadeTremor);
 
-  if (x > 5) {
+  if (intensidadeTremor > limiteTremor) {
 
-    Serial.println("DIREITA");
+    Serial.println("TREMOR DETECTADO");
 
-  }
+    digitalWrite(vibracall, HIGH);
 
-  else if (x < -5) {
+  } else {
 
-    Serial.println("ESQUERDA");
-
-  }
-
-  else if (y > 5) {
-
-    Serial.println("CIMA");
+    digitalWrite(vibracall, LOW);
 
   }
 
-  else if (y < -5) {
+  Serial.println("--------------------");
 
-    Serial.println("BAIXO");
-
-  }
-
-  else {
-
-    Serial.println("PARADO");
-
-  }
-
-  Serial.println("-------------------");
-
-  delay(500);
+  delay(50);
 }

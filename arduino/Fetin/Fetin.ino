@@ -2,16 +2,50 @@
 #include <Wire.h>
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
+#include <math.h>
 
-const char* ssid = "Apt_105";
-const char* password = "000222201";
+// ======================================
+// WIFI CONFIGURATION
+// ======================================
+
+const char* WIFI_SSID = "Apt_105";
+const char* WIFI_PASSWORD = "000222201";
+
+// ======================================
+// HARDWARE CONFIGURATION
+// ======================================
+
+const int VIBRATION_MOTOR_PIN = 33;
+
+// ======================================
+// MPU6050
+// ======================================
 
 Adafruit_MPU6050 mpu;
 
-const int vibracall = 33;
+// ======================================
+// TREMOR SETTINGS
+// ======================================
 
-// Limite de tremor
-float limiteTremor = 1.5;
+float tremorThreshold = 1.5;
+
+// ======================================
+// FUNCTION DECLARATIONS
+// ======================================
+
+void initializeMPU();
+void connectWiFi();
+
+float calculateTremorIntensity();
+
+void activateVibration();
+void deactivateVibration();
+
+void detectTremor();
+
+// ======================================
+// SETUP
+// ======================================
 
 void setup() {
 
@@ -19,73 +53,144 @@ void setup() {
 
   Wire.begin(25, 26);
 
-  pinMode(vibracall, OUTPUT);
-  digitalWrite(vibracall, LOW);
+  pinMode(VIBRATION_MOTOR_PIN, OUTPUT);
+  digitalWrite(VIBRATION_MOTOR_PIN, LOW);
 
-  Serial.println("Iniciando MPU6050...");
+  initializeMPU();
+
+  connectWiFi();
+
+  Serial.println("\nSystem Ready!");
+}
+
+// ======================================
+// LOOP
+// ======================================
+
+void loop() {
+
+  detectTremor();
+
+  delay(50);
+}
+
+// ======================================
+// MPU INITIALIZATION
+// ======================================
+
+void initializeMPU() {
+
+  Serial.println("Initializing MPU6050...");
 
   if (!mpu.begin()) {
 
-    Serial.println("MPU6050 nao encontrado!");
+    Serial.println("MPU6050 not found!");
 
-    while (1) {
+    while (true) {
       delay(10);
     }
   }
 
-  Serial.println("MPU6050 conectado!");
+  Serial.println("MPU6050 connected!");
+}
 
-  WiFi.begin(ssid, password);
+// ======================================
+// WIFI CONNECTION
+// ======================================
 
-  Serial.print("Conectando WiFi");
+void connectWiFi() {
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  Serial.print("Connecting to WiFi");
 
   while (WiFi.status() != WL_CONNECTED) {
+
     delay(500);
     Serial.print(".");
   }
 
   Serial.println();
-  Serial.println("WiFi conectado!");
+  Serial.println("WiFi Connected!");
+  Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
 }
 
-void loop() {
+// ======================================
+// TREMOR CALCULATION
+// ======================================
+
+float calculateTremorIntensity() {
 
   sensors_event_t a, g, temp;
 
   mpu.getEvent(&a, &g, &temp);
 
-  float gx = abs(g.gyro.x);
-  float gy = abs(g.gyro.y);
-  float gz = abs(g.gyro.z);
+  float gyroX = abs(g.gyro.x);
+  float gyroY = abs(g.gyro.y);
+  float gyroZ = abs(g.gyro.z);
 
-  float intensidadeTremor = gx + gy + gz;
+  float tremorIntensity = sqrt(
+    gyroX * gyroX +
+    gyroY * gyroY +
+    gyroZ * gyroZ
+  );
 
   Serial.print("Gyro X: ");
-  Serial.print(gx);
+  Serial.print(gyroX);
 
-  Serial.print(" | Y: ");
-  Serial.print(gy);
+  Serial.print(" | Gyro Y: ");
+  Serial.print(gyroY);
 
-  Serial.print(" | Z: ");
-  Serial.print(gz);
+  Serial.print(" | Gyro Z: ");
+  Serial.print(gyroZ);
 
   Serial.print(" | Tremor: ");
-  Serial.println(intensidadeTremor);
+  Serial.println(tremorIntensity);
 
-  if (intensidadeTremor > limiteTremor) {
+  return tremorIntensity;
+}
 
-    Serial.println("TREMOR DETECTADO");
+// ======================================
+// VIBRATION CONTROL
+// ======================================
 
-    digitalWrite(vibracall, HIGH);
+void activateVibration() {
 
-  } else {
+  digitalWrite(VIBRATION_MOTOR_PIN, HIGH);
+}
 
-    digitalWrite(vibracall, LOW);
+void deactivateVibration() {
 
+  digitalWrite(VIBRATION_MOTOR_PIN, LOW);
+}
+
+// ======================================
+// TREMOR DETECTION
+// ======================================
+
+void detectTremor() {
+
+  float tremorIntensity = calculateTremorIntensity();
+
+  if (tremorIntensity > tremorThreshold * 2) {
+
+    Serial.println(">>> STRONG TREMOR DETECTED");
+
+    activateVibration();
+  }
+  else if (tremorIntensity > tremorThreshold) {
+
+    Serial.println(">>> MODERATE TREMOR DETECTED");
+
+    activateVibration();
+  }
+  else {
+
+    Serial.println(">>> NORMAL MOVEMENT");
+
+    deactivateVibration();
   }
 
-  Serial.println("--------------------");
-
-  delay(50);
+  Serial.println("--------------------------------");
 }

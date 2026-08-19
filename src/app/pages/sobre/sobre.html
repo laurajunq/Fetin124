@@ -2,58 +2,150 @@
 
   <header>
     <h1>Sobre o Projeto</h1>
-    <p>HandPulse</p>
   </header>
 
   <div class="card">
-
-    <h2>O que é o HandPulse?</h2>
-
-    <p>
-      O HandPulse é uma luva inteligente desenvolvida para
-      monitorar movimentos involuntários das mãos utilizando
-      sensores de movimento e um sistema de vibração tátil.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <h2>Objetivo</h2>
+    <h2>O que é a HandPulse?</h2>
 
     <p>
-      Auxiliar pessoas que possuem tremores ou dificuldades
-      motoras, fornecendo monitoramento em tempo real e
-      coleta de dados para futuras análises com Inteligência Artificial.
+      A HandPulse é uma luva inteligente desenvolvida para o monitoramento de
+      tremores e movimentos involuntários das mãos. Através de sensores de
+      movimento, a luva consegue identificar como a mão está se movimentando
+      e transformar essas informações em dados que podem ser analisados pelo sistema.
+
+      A proposta combina eletrônica, programação, coleta de dados e
+      Inteligência Artificial para desenvolver uma tecnologia capaz de
+      acompanhar os movimentos em tempo real e, futuramente, oferecer
+      respostas cada vez mais personalizadas.
     </p>
-
   </div>
 
   <div class="card">
+    <h2>Como funciona?</h2>
 
-    <h2>Tecnologias Utilizadas</h2>
+    <p>
+      A HandPulse utiliza um sensor chamado MPU6050, que funciona como um
+      pequeno sistema capaz de perceber os movimentos e mudanças na posição
+      da mão.
 
-    <ul>
+      <br><br>
 
-      <li>ESP32</li>
-      <li>MPU6050</li>
-      <li>Motor Vibracall</li>
-      <li>Firebase</li>
-      <li>Angular</li>
-      <li>TypeScript</li>
+      Ele registra informações sobre diferentes direções do movimento,
+      permitindo que o sistema identifique características dos tremores.
+      Essas informações são processadas por um ESP32, um pequeno computador
+      utilizado na luva. Ele recebe os dados do sensor, realiza os cálculos
+      necessários e envia as informações para o sistema.
 
-    </ul>
+      <br><br>
 
+      Quando determinadas características de tremor são identificadas,
+      um motor Vibracall pode ser acionado. Esse motor produz uma pequena
+      vibração na luva, funcionando como uma forma de estimulação vibratória
+      e resposta ao movimento detectado.
+
+      <br><br>
+
+      De forma simplificada: o sensor percebe o movimento, o ESP32 processa
+      as informações e a luva pode responder através da vibração.
+    </p>
   </div>
 
   <div class="card">
+    <h2>Dados e Inteligência Artificial</h2>
 
+    <p>
+      Além de responder aos movimentos, a HandPulse também realiza a coleta
+      e o armazenamento dos dados. As informações podem ser enviadas para
+      o Firebase, um serviço utilizado para armazenar os dados coletados
+      pela luva.
+
+      <br><br>
+
+      Esses dados também podem ser apresentados em um dashboard, uma
+      interface visual que permite acompanhar as informações de maneira
+      mais fácil, como os níveis de movimento, intensidade e ocorrência
+      de tremores.
+
+      <br><br>
+
+      A coleta desses dados é importante para uma das próximas etapas do
+      projeto: o uso de Inteligência Artificial. A ideia é que, com uma
+      quantidade suficiente de informações, a IA possa ajudar a identificar
+      padrões nos tremores e compreender melhor as características dos
+      movimentos de cada usuário.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Qual o nosso objetivo?</h2>
+
+    <p>
+      O objetivo da HandPulse é desenvolver uma tecnologia vestível capaz
+      de monitorar tremores, coletar informações sobre os movimentos e
+      utilizar esses dados para pesquisas e futuras aplicações de
+      Inteligência Artificial.
+
+      <br><br>
+
+      A longo prazo, buscamos tornar o sistema capaz de reconhecer
+      diferentes padrões de movimento e contribuir para uma estimulação
+      vibratória mais personalizada.
+
+      <br><br>
+
+      A HandPulse ainda está em fase de desenvolvimento e pesquisa.
+      Por isso, seus resultados e possibilidades estão sendo avaliados
+      através de testes e da análise dos dados coletados.
+    </p>
+  </div>
+
+  <div class="card">
+  <h2>Tecnologias Utilizadas</h2>
+
+  <ul>
+    <li>
+      <strong>ESP32</strong>
+      Microcontrolador responsável pelo processamento e comunicação dos dados.
+    </li>
+
+    <li>
+      <strong>MPU6050</strong>
+      Sensor utilizado para detectar os movimentos da mão.
+    </li>
+
+    <li>
+      <strong>Motor Vibracall</strong>
+      Responsável pela estimulação vibratória da luva.
+    </li>
+
+    <li>
+      <strong>Firebase</strong>
+      Utilizado para armazenar os dados coletados.
+    </li>
+
+    <li>
+      <strong>Angular</strong>
+      Utilizado para desenvolver a interface do sistema.
+    </li>
+
+    <li>
+      <strong>TypeScript</strong>
+      Utilizado no desenvolvimento da aplicação.
+    </li>
+
+    <li>
+      <strong>Inteligência Artificial</strong>
+      Parte da proposta para análise dos dados e identificação de padrões.
+    </li>
+  </ul>
+</div>
+
+  <div class="card">
     <h2>Equipe</h2>
 
     <p>
       Projeto desenvolvido para a FETIN 2026.
     </p>
-
   </div>
 
 </div>

@@ -1,12 +1,49 @@
 import { Component } from '@angular/core';
-import { RouterLinkWithHref } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLinkWithHref],
+  standalone: true,
+
+  imports: [
+    RouterLink
+  ],
+
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  styleUrl: './navbar.css'
 })
 export class Navbar {
+
+  constructor(
+    private router: Router
+  ) {}
+
+
+  // =========================
+  // VERIFICA LOGIN
+  // =========================
+
+  get estaLogado(): boolean {
+
+    return sessionStorage.getItem(
+      'handpulseLogado'
+    ) === 'true';
+
+  }
+
+
+  // =========================
+  // SAIR
+  // =========================
+
+  sair(): void {
+
+    sessionStorage.removeItem(
+      'handpulseLogado'
+    );
+
+    this.router.navigate(['/sobre']);
+
+  }
 
 }

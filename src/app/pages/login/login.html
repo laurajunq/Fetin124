@@ -1,0 +1,103 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <!-- IDENTIDADE -->
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        HP
+      </div>
+
+      <h1>HandPulse</h1>
+
+      <p>
+        Sistema de monitoramento da luva inteligente
+      </p>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <form (ngSubmit)="entrar()">
+
+      <div class="form-group">
+
+        <label for="usuario">
+          Usuário
+        </label>
+
+        <input
+          id="usuario"
+          type="text"
+          name="usuario"
+          [(ngModel)]="usuario"
+          placeholder="Digite seu usuário"
+          autocomplete="username"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="senha">
+          Senha
+        </label>
+
+        <input
+          id="senha"
+          type="password"
+          name="senha"
+          [(ngModel)]="senha"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <!-- ERRO -->
+
+      @if (erro) {
+
+        <div class="error-message">
+          Usuário ou senha incorretos.
+        </div>
+
+      }
+
+
+      <!-- BOTÃO -->
+
+      <button
+        type="submit"
+        class="login-button"
+      >
+        Entrar
+      </button>
+
+    </form>
+
+
+    <!-- SOBRE -->
+
+    <div class="about-link">
+
+      <span>
+        Ainda não conhece o projeto?
+      </span>
+
+      <a routerLink="/sobre">
+        Conheça a HandPulse
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

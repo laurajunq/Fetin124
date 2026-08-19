@@ -1,17 +1,80 @@
 <nav class="navbar">
 
-    <div class="navbar-content">
+  <!-- LOGO -->
 
-        <div class="logo">
-            HandPulse
-        </div>
+  <a
+    class="logo"
+    routerLink="/sobre"
+  >
+    HandPulse
+  </a>
 
-        <div class="links">
-            <a routerLink="/dashboard">Dashboard</a>
-            <a routerLink="/historico">Histórico</a>
-            <a routerLink="/sobre">Sobre</a>
-        </div>
 
-    </div>
+  <!-- MENU -->
+
+  <div class="nav-links">
+
+    <!-- SEM LOGIN -->
+
+    @if (!estaLogado) {
+
+      <a
+        routerLink="/sobre"
+        routerLinkActive="active"
+      >
+        Sobre
+      </a>
+
+
+      <a
+        routerLink="/login"
+        routerLinkActive="active"
+        class="login-link"
+      >
+        Sign In
+      </a>
+
+    }
+
+
+    <!-- COM LOGIN -->
+
+    @if (estaLogado) {
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+      >
+        Dashboard
+      </a>
+
+
+      <a
+        routerLink="/historico"
+        routerLinkActive="active"
+      >
+        Histórico
+      </a>
+
+
+      <a
+        routerLink="/sobre"
+        routerLinkActive="active"
+      >
+        Sobre
+      </a>
+
+
+      <button
+        type="button"
+        class="logout"
+        (click)="sair()"
+      >
+        Sair
+      </button>
+
+    }
+
+  </div>
 
 </nav>

@@ -1,59 +1,99 @@
-# Fetin2026
+# 🧤 FETIN 2026 - Luva Inteligente para Auxílio no Controle de Tremores
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+## 📖 Sobre o Projeto
 
-## Development server
+A Luva Inteligente é um projeto desenvolvido para a FETIN 2026 com o objetivo de auxiliar pessoas que sofrem com tremores, como os causados pela Doença de Parkinson.
 
-To start a local development server, run:
+O sistema utiliza sensores e um motor vibratório para aplicar estímulos vibrotáteis, técnica que estudos apontam como uma das abordagens promissoras para redução dos efeitos dos tremores e melhoria da estabilidade dos movimentos.
+
+Além do hardware embarcado, o projeto conta com uma interface web desenvolvida em Angular para monitoramento e visualização dos dados coletados.
+
+---
+
+## 🎯 Objetivos
+
+* Auxiliar no controle de tremores através de estimulação vibrotátil.
+* Monitorar dados em tempo real.
+* Armazenar histórico de medições.
+* Fornecer uma interface intuitiva para usuários e pesquisadores.
+* Demonstrar a aplicação da tecnologia na área da saúde e acessibilidade.
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+### Front-end
+
+* Angular 20
+* TypeScript
+* HTML5
+* CSS3
+
+### Hardware
+
+* ESP32
+* Sensores de movimento
+* Motor Vibracall
+* Comunicação Wi-Fi
+
+### Banco de Dados
+
+* Firebase
+
+---
+
+## 📂 Estrutura do Projeto
+
+```text
+src/
+ ├── app/
+ ├── components/
+ ├── services/
+ ├── pages/
+ └── assets/
+```
+
+---
+
+## 🚀 Como Executar
+
+### Instalar dependências
+
+```bash
+npm install
+```
+
+### Executar em modo de desenvolvimento
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação estará disponível em:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📊 Funcionalidades
 
-## Building
+* Dashboard em temp|o real
+* Histórico de medições
+* Visualização de gráficos
+* Monitoramento dos sensores
+* Integração com Firebase
+* Controle dos parâmetros da luva
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 👩‍💻 Equipe
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Projeto desenvolvido para participação na FETIN 2026.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 📄 Licença
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto foi desenvolvido para fins educacionais e científicos.

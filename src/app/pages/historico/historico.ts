@@ -19,26 +19,15 @@ export class Historico implements OnInit {
 
   ngOnInit(): void {
 
-    this.firebaseService.getLuva()
-      .subscribe((dados: any) => {
+    this.firebaseService.getLeituras()
+      .subscribe((dados: any[]) => {
 
-        if (!dados) return;
-
-        const leitura = {
-          horario: new Date().toLocaleTimeString(),
-          movimento: dados.movimento ?? 'PARADO',
-          intensidade: dados.intensidade ?? 0,
-          vibracao: dados.vibracao ?? 'DESATIVADO',
-          gx: dados.gx ?? 0,
-          gy: dados.gy ?? 0,
-          gz: dados.gz ?? 0
-        };
-
-        this.leituras.unshift(leitura);
-
-        if (this.leituras.length > 50) {
-          this.leituras.pop();
+        if (!dados) {
+          this.leituras = [];
+          return;
         }
+
+        this.leituras = dados.reverse();
 
       });
 

@@ -1,65 +1,200 @@
-.navbar{
-    width:100%;
-    background:#2E7D5B;
-;
+/* =========================
+   NAVBAR
+========================= */
 
-    display:flex;
-    justify-content:center;
+:host {
+  display: block;
 
-    box-shadow:0 4px 10px rgba(0,0,0,.1);
-
-    position:sticky;
-    top:0;
-    z-index:1000;
+  width: 100%;
 }
 
-.navbar-content{
-    width:90%;
-    max-width:1400px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.navbar {
+  width: 100%;
 
-    padding:15px 0;
+  min-height: 78px;
+
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #FFFFFF;
+
+  border-bottom: 1px solid rgba(102, 107, 84, 0.12);
+
+  box-shadow:
+    0 3px 12px rgba(102, 107, 84, 0.08);
+
+  position: relative;
+  z-index: 100;
 }
 
-.logo{
-    font-size:1.8rem;
-    font-weight:bold;
-    color:white;
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+  flex-shrink: 0;
+
+  color: #666B54;
+
+  font-size: 1.7rem;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  letter-spacing: -0.5px;
+
+  transition: color 0.25s ease;
 }
 
-.links{
-    display:flex;
-    gap:20px;
+
+.logo:hover {
+  color: #C67A7E;
 }
 
-.links a{
-    text-decoration:none;
-    color:white;
-    padding:10px 18px;
-    border-radius:10px;
-    transition:.3s;
+
+/* =========================
+   LINKS
+========================= */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
 }
 
-.links a:hover{
-    background:#C67A7E;
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 9px 14px;
+
+  color: #666B54;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  white-space: nowrap;
+
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
 }
 
-.links a.active{
-    background:#C67A7E;
+
+.nav-links a:hover {
+  color: #C67A7E;
+
+  background: #F8EAE7;
 }
 
-@media(max-width:768px){
 
-    .navbar-content{
-        flex-direction:column;
-        gap:15px;
-    }
+/* =========================
+   LINK ATIVO
+========================= */
 
-    .links{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
+.nav-links a.active {
+  color: #C67A7E;
+
+  background: #F8EAE7;
+}
+
+
+/* =========================
+   SIGN IN
+========================= */
+
+.login-link {
+  margin-left: 8px;
+
+  padding: 10px 20px !important;
+
+  color: #FFFFFF !important;
+
+  background: #666B54 !important;
+
+  border-radius: 12px !important;
+}
+
+
+.login-link:hover {
+  color: #FFFFFF !important;
+
+  background: #C67A7E !important;
+}
+
+
+/* =========================
+   BOTÃO SAIR
+========================= */
+
+.logout {
+  margin-left: 8px;
+
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #C67A7E;
+
+  color: #FFFFFF;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.logout:hover {
+  background: #666B54;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 700px) {
+
+  .navbar {
+    min-height: auto;
+
+    padding: 16px 5%;
+
+    flex-direction: column;
+
+    gap: 14px;
+  }
+
+
+  .nav-links {
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+  }
+
 }

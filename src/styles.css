@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+/* =========================
+   RESET GLOBAL
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   HTML E BODY
+========================= */
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+  background: #EEDDCD;
+  color: #666B54;
+}
+
+
+/* =========================
+   ROOT DO ANGULAR
+========================= */
+
+app-root {
+  display: block;
+
+  width: 100%;
+  min-height: 100vh;
+}

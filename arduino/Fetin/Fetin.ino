@@ -10,18 +10,18 @@
 // WIFI CONFIGURATION
 // ======================================
 
-const char* WIFI_SSID = "SEU_WIFI";
-const char* WIFI_PASSWORD = "SUA_SENHA";
+const char* WIFI_SSID = "Ana Beatriz";
+const char* WIFI_PASSWORD = "ANABIA2710200627";
 
 // ======================================
 // HIVEMQ MQTT CONFIGURATION
 // ======================================
 
-const char* MQTT_SERVER = "SEU_SERVIDOR_HIVEMQ";
+const char* MQTT_SERVER = "ca7a0fa4df60498cb66ecefa6a0a048b.s1.eu.hivemq.cloud";
 const int MQTT_PORT = 8883;
 
-const char* MQTT_USER = "SEU_USUARIO";
-const char* MQTT_PASSWORD = "SUA_SENHA";
+const char* MQTT_USER = "iotesp";
+const char* MQTT_PASSWORD = "BIA2710.";
 
 const char* TOPIC_PUBLISH = "hand/pulse";
 
@@ -50,7 +50,6 @@ PubSubClient mqttClient(espClient);
 
 float tremorThreshold = 1.5;
 
-// Publicação a cada 500 ms
 unsigned long lastPublishTime = 0;
 const unsigned long publishInterval = 500;
 
@@ -89,23 +88,22 @@ void setup() {
 
   Serial.begin(115200);
 
-  // I2C do MPU6050
   Wire.begin(25, 26);
 
-  // Motor de vibração
   pinMode(VIBRATION_MOTOR_PIN, OUTPUT);
   digitalWrite(VIBRATION_MOTOR_PIN, LOW);
 
-  // Inicializa sensor
   initializeMPU();
 
-  // Conecta Wi-Fi
   connectWiFi();
 
-  // Configura conexão segura MQTT
+  // Configuração SSL/TLS para o HiveMQ
   espClient.setInsecure();
 
-  mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
+  mqttClient.setServer(
+    MQTT_SERVER,
+    MQTT_PORT
+  );
 
   Serial.println();
   Serial.println("================================");
@@ -119,14 +117,14 @@ void setup() {
 
 void loop() {
 
-  // Verifica conexão MQTT
+  // Mantém a conexão MQTT ativa
   if (!mqttClient.connected()) {
     reconnectMQTT();
   }
 
   mqttClient.loop();
 
-  // Detecta tremor
+  // Detecta tremores
   detectTremor();
 
   delay(20);
@@ -158,7 +156,10 @@ void initializeMPU() {
 
 void connectWiFi() {
 
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  WiFi.begin(
+    WIFI_SSID,
+    WIFI_PASSWORD
+  );
 
   Serial.print("Connecting to WiFi");
 
@@ -183,9 +184,12 @@ void reconnectMQTT() {
 
   while (!mqttClient.connected()) {
 
-    Serial.print("Connecting to HiveMQ...");
+    Serial.print(
+      "Attempting MQTT connection to HiveMQ..."
+    );
 
-    String clientId = "ESP32-HandPulse-";
+    // Cria um ID único para o ESP32
+    String clientId = "ESP32-TremorSensor-";
     clientId += String(random(0xffff), HEX);
 
     if (
@@ -200,10 +204,12 @@ void reconnectMQTT() {
 
     } else {
 
-      Serial.print(" Failed. MQTT state: ");
-      Serial.println(mqttClient.state());
+      Serial.print(" Failed, rc=");
+      Serial.print(mqttClient.state());
 
-      Serial.println("Retrying in 5 seconds...");
+      Serial.println(
+        " Trying again in 5 seconds..."
+      );
 
       delay(5000);
     }
@@ -224,7 +230,11 @@ float calculateTremorIntensity(
   sensors_event_t g;
   sensors_event_t temp;
 
-  mpu.getEvent(&a, &g, &temp);
+  mpu.getEvent(
+    &a,
+    &g,
+    &temp
+  );
 
   gyroX = abs(g.gyro.x);
   gyroY = abs(g.gyro.y);
@@ -245,12 +255,18 @@ float calculateTremorIntensity(
 
 void activateVibration() {
 
-  digitalWrite(VIBRATION_MOTOR_PIN, HIGH);
+  digitalWrite(
+    VIBRATION_MOTOR_PIN,
+    HIGH
+  );
 }
 
 void deactivateVibration() {
 
-  digitalWrite(VIBRATION_MOTOR_PIN, LOW);
+  digitalWrite(
+    VIBRATION_MOTOR_PIN,
+    LOW
+  );
 }
 
 // ======================================
@@ -272,11 +288,14 @@ void detectTremor() {
 
   String statusMessage = "NORMAL";
 
-  // ==========================
+  // ====================================
   // TREMOR CLASSIFICATION
-  // ==========================
+  // ====================================
 
-  if (tremorIntensity > tremorThreshold * 2) {
+  if (
+    tremorIntensity >
+    tremorThreshold * 2
+  ) {
 
     statusMessage = "STRONG";
 
@@ -284,7 +303,10 @@ void detectTremor() {
 
   }
 
-  else if (tremorIntensity > tremorThreshold) {
+  else if (
+    tremorIntensity >
+    tremorThreshold
+  ) {
 
     statusMessage = "MODERATE";
 
@@ -299,9 +321,9 @@ void detectTremor() {
     deactivateVibration();
   }
 
-  // ==========================
+  // ====================================
   // MQTT PUBLISH
-  // ==========================
+  // ====================================
 
   unsigned long currentTime = millis();
 
@@ -312,6 +334,7 @@ void detectTremor() {
 
     lastPublishTime = currentTime;
 
+    // Serial debug
     Serial.print("Gyro X: ");
     Serial.print(gyroX);
 
@@ -321,7 +344,7 @@ void detectTremor() {
     Serial.print(" | Gyro Z: ");
     Serial.print(gyroZ);
 
-    Serial.print(" | Intensity: ");
+    Serial.print(" | Tremor: ");
     Serial.print(tremorIntensity);
 
     Serial.print(" | Status: ");
@@ -338,7 +361,7 @@ void detectTremor() {
 }
 
 // ======================================
-// MQTT PUBLISH
+// PUBLISH MQTT DATA
 // ======================================
 
 void publishMQTTData(
@@ -376,10 +399,14 @@ void publishMQTTData(
 
   if (success) {
 
-    Serial.println("MQTT -> Data published");
+    Serial.println(
+      "MQTT -> Data published"
+    );
 
   } else {
 
-    Serial.println("MQTT -> Publish failed");
+    Serial.println(
+      "MQTT -> Publish failed"
+    );
   }
 }
